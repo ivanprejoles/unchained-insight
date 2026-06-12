@@ -14,7 +14,198 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      activity_log: {
+        Row: {
+          action: string
+          created_at: string
+          details: Json
+          id: string
+          player_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          details?: Json
+          id?: string
+          player_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          details?: Json
+          id?: string
+          player_id?: string
+        }
+        Relationships: []
+      }
+      badges: {
+        Row: {
+          description: string
+          display_order: number
+          icon: string
+          id: string
+          name: string
+          requirement_type: string
+          requirement_value: number
+        }
+        Insert: {
+          description: string
+          display_order?: number
+          icon: string
+          id: string
+          name: string
+          requirement_type: string
+          requirement_value: number
+        }
+        Update: {
+          description?: string
+          display_order?: number
+          icon?: string
+          id?: string
+          name?: string
+          requirement_type?: string
+          requirement_value?: number
+        }
+        Relationships: []
+      }
+      lessons: {
+        Row: {
+          activities: Json
+          created_at: string
+          description: string
+          display_order: number
+          estimated_duration: number
+          id: string
+          lesson_number: number
+          stage_number: number
+          title: string
+          vocabulary: Json
+          xp_reward: number
+        }
+        Insert: {
+          activities?: Json
+          created_at?: string
+          description: string
+          display_order: number
+          estimated_duration?: number
+          id?: string
+          lesson_number: number
+          stage_number: number
+          title: string
+          vocabulary?: Json
+          xp_reward?: number
+        }
+        Update: {
+          activities?: Json
+          created_at?: string
+          description?: string
+          display_order?: number
+          estimated_duration?: number
+          id?: string
+          lesson_number?: number
+          stage_number?: number
+          title?: string
+          vocabulary?: Json
+          xp_reward?: number
+        }
+        Relationships: []
+      }
+      player_progress: {
+        Row: {
+          completed_at: string
+          id: string
+          lesson_id: string
+          player_id: string
+          score: number
+          xp_earned: number
+        }
+        Insert: {
+          completed_at?: string
+          id?: string
+          lesson_id: string
+          player_id: string
+          score?: number
+          xp_earned?: number
+        }
+        Update: {
+          completed_at?: string
+          id?: string
+          lesson_id?: string
+          player_id?: string
+          score?: number
+          xp_earned?: number
+        }
+        Relationships: []
+      }
+      players: {
+        Row: {
+          created_at: string
+          current_streak: number
+          id: string
+          level: number
+          longest_streak: number
+          total_xp: number
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          current_streak?: number
+          id: string
+          level?: number
+          longest_streak?: number
+          total_xp?: number
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          current_streak?: number
+          id?: string
+          level?: number
+          longest_streak?: number
+          total_xp?: number
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      stages: {
+        Row: {
+          color: string
+          created_at: string
+          description: string
+          display_order: number
+          icon: string
+          id: string
+          lesson_count: number
+          stage_number: number
+          title: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          description: string
+          display_order: number
+          icon: string
+          id?: string
+          lesson_count?: number
+          stage_number: number
+          title: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          description?: string
+          display_order?: number
+          icon?: string
+          id?: string
+          lesson_count?: number
+          stage_number?: number
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
