@@ -74,7 +74,7 @@ function AdminLessonEditor() {
       const err = validate(acts);
       if (err) { setError(err); throw new Error(err); }
       setError(null);
-      await updateLesson(lessonId, { activities: acts });
+      await updateLesson(lessonId, { activities: normalize(acts) });
     },
     onSuccess: () => { setDirty(false); qc.invalidateQueries({ queryKey: ["lesson-edit", lessonId] }); },
   });
@@ -133,6 +133,20 @@ function AdminLessonEditor() {
 }
 
 function validate(acts: Activity[]): string | null {
+  return _validate(acts);
+}
+
+function normalize(acts: Activity[]): Activity[] {
+  return acts.map((a) => {
+    if (a.type !== "matching") return a;
+    const keys = Array.from(new Set(a.pairs.map((p) => p.pairKey ?? "")));
+    const asA = keys.map((k) => a.pairs.find((p) => p.pairKey === k)!);
+    const asB = keys.map((k) => [...a.pairs].reverse().find((p) => p.pairKey === k)!);
+    return { ...a, pairs: [...asA, ...asB] };
+  });
+}
+
+function _validate(acts: Activity[]): string | null {
   for (let i = 0; i < acts.length; i++) {
     const a = acts[i];
     const tag = `Activity #${i + 1} (${a.type})`;
