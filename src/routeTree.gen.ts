@@ -21,6 +21,7 @@ import { Route as AdminLangCodeRouteImport } from './routes/admin.$langCode'
 import { Route as LearnLangCodeFoundationRouteImport } from './routes/learn.$langCode.foundation'
 import { Route as AdminLangCodeFoundationRouteImport } from './routes/admin.$langCode.foundation'
 import { Route as AdminLangCodeFoundationStageStageIdRouteImport } from './routes/admin.$langCode.foundation.stage.$stageId'
+import { Route as AdminLangCodeFoundationLessonLessonIdRouteImport } from './routes/admin.$langCode.foundation.lesson.$lessonId'
 
 const LeaderboardRoute = LeaderboardRouteImport.update({
   id: '/leaderboard',
@@ -83,6 +84,12 @@ const AdminLangCodeFoundationStageStageIdRoute =
     path: '/stage/$stageId',
     getParentRoute: () => AdminLangCodeFoundationRoute,
   } as any)
+const AdminLangCodeFoundationLessonLessonIdRoute =
+  AdminLangCodeFoundationLessonLessonIdRouteImport.update({
+    id: '/lesson/$lessonId',
+    path: '/lesson/$lessonId',
+    getParentRoute: () => AdminLangCodeFoundationRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByFullPath {
   '/lessons/$stageId': typeof LessonsStageIdRoute
   '/admin/$langCode/foundation': typeof AdminLangCodeFoundationRouteWithChildren
   '/learn/$langCode/foundation': typeof LearnLangCodeFoundationRoute
+  '/admin/$langCode/foundation/lesson/$lessonId': typeof AdminLangCodeFoundationLessonLessonIdRoute
   '/admin/$langCode/foundation/stage/$stageId': typeof AdminLangCodeFoundationStageStageIdRoute
 }
 export interface FileRoutesByTo {
@@ -110,6 +118,7 @@ export interface FileRoutesByTo {
   '/lessons/$stageId': typeof LessonsStageIdRoute
   '/admin/$langCode/foundation': typeof AdminLangCodeFoundationRouteWithChildren
   '/learn/$langCode/foundation': typeof LearnLangCodeFoundationRoute
+  '/admin/$langCode/foundation/lesson/$lessonId': typeof AdminLangCodeFoundationLessonLessonIdRoute
   '/admin/$langCode/foundation/stage/$stageId': typeof AdminLangCodeFoundationStageStageIdRoute
 }
 export interface FileRoutesById {
@@ -125,6 +134,7 @@ export interface FileRoutesById {
   '/lessons/$stageId': typeof LessonsStageIdRoute
   '/admin/$langCode/foundation': typeof AdminLangCodeFoundationRouteWithChildren
   '/learn/$langCode/foundation': typeof LearnLangCodeFoundationRoute
+  '/admin/$langCode/foundation/lesson/$lessonId': typeof AdminLangCodeFoundationLessonLessonIdRoute
   '/admin/$langCode/foundation/stage/$stageId': typeof AdminLangCodeFoundationStageStageIdRoute
 }
 export interface FileRouteTypes {
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/lessons/$stageId'
     | '/admin/$langCode/foundation'
     | '/learn/$langCode/foundation'
+    | '/admin/$langCode/foundation/lesson/$lessonId'
     | '/admin/$langCode/foundation/stage/$stageId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/lessons/$stageId'
     | '/admin/$langCode/foundation'
     | '/learn/$langCode/foundation'
+    | '/admin/$langCode/foundation/lesson/$lessonId'
     | '/admin/$langCode/foundation/stage/$stageId'
   id:
     | '__root__'
@@ -169,6 +181,7 @@ export interface FileRouteTypes {
     | '/lessons/$stageId'
     | '/admin/$langCode/foundation'
     | '/learn/$langCode/foundation'
+    | '/admin/$langCode/foundation/lesson/$lessonId'
     | '/admin/$langCode/foundation/stage/$stageId'
   fileRoutesById: FileRoutesById
 }
@@ -269,15 +282,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLangCodeFoundationStageStageIdRouteImport
       parentRoute: typeof AdminLangCodeFoundationRoute
     }
+    '/admin/$langCode/foundation/lesson/$lessonId': {
+      id: '/admin/$langCode/foundation/lesson/$lessonId'
+      path: '/lesson/$lessonId'
+      fullPath: '/admin/$langCode/foundation/lesson/$lessonId'
+      preLoaderRoute: typeof AdminLangCodeFoundationLessonLessonIdRouteImport
+      parentRoute: typeof AdminLangCodeFoundationRoute
+    }
   }
 }
 
 interface AdminLangCodeFoundationRouteChildren {
+  AdminLangCodeFoundationLessonLessonIdRoute: typeof AdminLangCodeFoundationLessonLessonIdRoute
   AdminLangCodeFoundationStageStageIdRoute: typeof AdminLangCodeFoundationStageStageIdRoute
 }
 
 const AdminLangCodeFoundationRouteChildren: AdminLangCodeFoundationRouteChildren =
   {
+    AdminLangCodeFoundationLessonLessonIdRoute:
+      AdminLangCodeFoundationLessonLessonIdRoute,
     AdminLangCodeFoundationStageStageIdRoute:
       AdminLangCodeFoundationStageStageIdRoute,
   }
