@@ -11,10 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LessonsStageIdRouteImport } from './routes/lessons.$stageId'
 import { Route as LessonLessonIdRouteImport } from './routes/lesson.$lessonId'
+import { Route as LearnLangCodeRouteImport } from './routes/learn.$langCode'
+import { Route as AdminLangCodeRouteImport } from './routes/admin.$langCode'
+import { Route as LearnLangCodeFoundationRouteImport } from './routes/learn.$langCode.foundation'
+import { Route as AdminLangCodeFoundationRouteImport } from './routes/admin.$langCode.foundation'
+import { Route as AdminLangCodeFoundationStageStageIdRouteImport } from './routes/admin.$langCode.foundation.stage.$stageId'
+import { Route as AdminLangCodeFoundationLessonLessonIdRouteImport } from './routes/admin.$langCode.foundation.lesson.$lessonId'
 
 const LeaderboardRoute = LeaderboardRouteImport.update({
   id: '/leaderboard',
@@ -24,6 +31,11 @@ const LeaderboardRoute = LeaderboardRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AchievementsRoute = AchievementsRouteImport.update({
@@ -46,64 +58,140 @@ const LessonLessonIdRoute = LessonLessonIdRouteImport.update({
   path: '/lesson/$lessonId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnLangCodeRoute = LearnLangCodeRouteImport.update({
+  id: '/learn/$langCode',
+  path: '/learn/$langCode',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLangCodeRoute = AdminLangCodeRouteImport.update({
+  id: '/$langCode',
+  path: '/$langCode',
+  getParentRoute: () => AdminRoute,
+} as any)
+const LearnLangCodeFoundationRoute = LearnLangCodeFoundationRouteImport.update({
+  id: '/foundation',
+  path: '/foundation',
+  getParentRoute: () => LearnLangCodeRoute,
+} as any)
+const AdminLangCodeFoundationRoute = AdminLangCodeFoundationRouteImport.update({
+  id: '/foundation',
+  path: '/foundation',
+  getParentRoute: () => AdminLangCodeRoute,
+} as any)
+const AdminLangCodeFoundationStageStageIdRoute =
+  AdminLangCodeFoundationStageStageIdRouteImport.update({
+    id: '/stage/$stageId',
+    path: '/stage/$stageId',
+    getParentRoute: () => AdminLangCodeFoundationRoute,
+  } as any)
+const AdminLangCodeFoundationLessonLessonIdRoute =
+  AdminLangCodeFoundationLessonLessonIdRouteImport.update({
+    id: '/lesson/$lessonId',
+    path: '/lesson/$lessonId',
+    getParentRoute: () => AdminLangCodeFoundationRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/achievements': typeof AchievementsRoute
+  '/admin': typeof AdminRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/admin/$langCode': typeof AdminLangCodeRouteWithChildren
+  '/learn/$langCode': typeof LearnLangCodeRouteWithChildren
   '/lesson/$lessonId': typeof LessonLessonIdRoute
   '/lessons/$stageId': typeof LessonsStageIdRoute
+  '/admin/$langCode/foundation': typeof AdminLangCodeFoundationRouteWithChildren
+  '/learn/$langCode/foundation': typeof LearnLangCodeFoundationRoute
+  '/admin/$langCode/foundation/lesson/$lessonId': typeof AdminLangCodeFoundationLessonLessonIdRoute
+  '/admin/$langCode/foundation/stage/$stageId': typeof AdminLangCodeFoundationStageStageIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/achievements': typeof AchievementsRoute
+  '/admin': typeof AdminRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/admin/$langCode': typeof AdminLangCodeRouteWithChildren
+  '/learn/$langCode': typeof LearnLangCodeRouteWithChildren
   '/lesson/$lessonId': typeof LessonLessonIdRoute
   '/lessons/$stageId': typeof LessonsStageIdRoute
+  '/admin/$langCode/foundation': typeof AdminLangCodeFoundationRouteWithChildren
+  '/learn/$langCode/foundation': typeof LearnLangCodeFoundationRoute
+  '/admin/$langCode/foundation/lesson/$lessonId': typeof AdminLangCodeFoundationLessonLessonIdRoute
+  '/admin/$langCode/foundation/stage/$stageId': typeof AdminLangCodeFoundationStageStageIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/achievements': typeof AchievementsRoute
+  '/admin': typeof AdminRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/admin/$langCode': typeof AdminLangCodeRouteWithChildren
+  '/learn/$langCode': typeof LearnLangCodeRouteWithChildren
   '/lesson/$lessonId': typeof LessonLessonIdRoute
   '/lessons/$stageId': typeof LessonsStageIdRoute
+  '/admin/$langCode/foundation': typeof AdminLangCodeFoundationRouteWithChildren
+  '/learn/$langCode/foundation': typeof LearnLangCodeFoundationRoute
+  '/admin/$langCode/foundation/lesson/$lessonId': typeof AdminLangCodeFoundationLessonLessonIdRoute
+  '/admin/$langCode/foundation/stage/$stageId': typeof AdminLangCodeFoundationStageStageIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/achievements'
+    | '/admin'
     | '/dashboard'
     | '/leaderboard'
+    | '/admin/$langCode'
+    | '/learn/$langCode'
     | '/lesson/$lessonId'
     | '/lessons/$stageId'
+    | '/admin/$langCode/foundation'
+    | '/learn/$langCode/foundation'
+    | '/admin/$langCode/foundation/lesson/$lessonId'
+    | '/admin/$langCode/foundation/stage/$stageId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/achievements'
+    | '/admin'
     | '/dashboard'
     | '/leaderboard'
+    | '/admin/$langCode'
+    | '/learn/$langCode'
     | '/lesson/$lessonId'
     | '/lessons/$stageId'
+    | '/admin/$langCode/foundation'
+    | '/learn/$langCode/foundation'
+    | '/admin/$langCode/foundation/lesson/$lessonId'
+    | '/admin/$langCode/foundation/stage/$stageId'
   id:
     | '__root__'
     | '/'
     | '/achievements'
+    | '/admin'
     | '/dashboard'
     | '/leaderboard'
+    | '/admin/$langCode'
+    | '/learn/$langCode'
     | '/lesson/$lessonId'
     | '/lessons/$stageId'
+    | '/admin/$langCode/foundation'
+    | '/learn/$langCode/foundation'
+    | '/admin/$langCode/foundation/lesson/$lessonId'
+    | '/admin/$langCode/foundation/stage/$stageId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AchievementsRoute: typeof AchievementsRoute
+  AdminRoute: typeof AdminRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   LeaderboardRoute: typeof LeaderboardRoute
+  LearnLangCodeRoute: typeof LearnLangCodeRouteWithChildren
   LessonLessonIdRoute: typeof LessonLessonIdRoute
   LessonsStageIdRoute: typeof LessonsStageIdRoute
 }
@@ -122,6 +210,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/achievements': {
@@ -152,27 +247,113 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LessonLessonIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/$langCode': {
+      id: '/learn/$langCode'
+      path: '/learn/$langCode'
+      fullPath: '/learn/$langCode'
+      preLoaderRoute: typeof LearnLangCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/$langCode': {
+      id: '/admin/$langCode'
+      path: '/$langCode'
+      fullPath: '/admin/$langCode'
+      preLoaderRoute: typeof AdminLangCodeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/learn/$langCode/foundation': {
+      id: '/learn/$langCode/foundation'
+      path: '/foundation'
+      fullPath: '/learn/$langCode/foundation'
+      preLoaderRoute: typeof LearnLangCodeFoundationRouteImport
+      parentRoute: typeof LearnLangCodeRoute
+    }
+    '/admin/$langCode/foundation': {
+      id: '/admin/$langCode/foundation'
+      path: '/foundation'
+      fullPath: '/admin/$langCode/foundation'
+      preLoaderRoute: typeof AdminLangCodeFoundationRouteImport
+      parentRoute: typeof AdminLangCodeRoute
+    }
+    '/admin/$langCode/foundation/stage/$stageId': {
+      id: '/admin/$langCode/foundation/stage/$stageId'
+      path: '/stage/$stageId'
+      fullPath: '/admin/$langCode/foundation/stage/$stageId'
+      preLoaderRoute: typeof AdminLangCodeFoundationStageStageIdRouteImport
+      parentRoute: typeof AdminLangCodeFoundationRoute
+    }
+    '/admin/$langCode/foundation/lesson/$lessonId': {
+      id: '/admin/$langCode/foundation/lesson/$lessonId'
+      path: '/lesson/$lessonId'
+      fullPath: '/admin/$langCode/foundation/lesson/$lessonId'
+      preLoaderRoute: typeof AdminLangCodeFoundationLessonLessonIdRouteImport
+      parentRoute: typeof AdminLangCodeFoundationRoute
+    }
   }
 }
+
+interface AdminLangCodeFoundationRouteChildren {
+  AdminLangCodeFoundationLessonLessonIdRoute: typeof AdminLangCodeFoundationLessonLessonIdRoute
+  AdminLangCodeFoundationStageStageIdRoute: typeof AdminLangCodeFoundationStageStageIdRoute
+}
+
+const AdminLangCodeFoundationRouteChildren: AdminLangCodeFoundationRouteChildren =
+  {
+    AdminLangCodeFoundationLessonLessonIdRoute:
+      AdminLangCodeFoundationLessonLessonIdRoute,
+    AdminLangCodeFoundationStageStageIdRoute:
+      AdminLangCodeFoundationStageStageIdRoute,
+  }
+
+const AdminLangCodeFoundationRouteWithChildren =
+  AdminLangCodeFoundationRoute._addFileChildren(
+    AdminLangCodeFoundationRouteChildren,
+  )
+
+interface AdminLangCodeRouteChildren {
+  AdminLangCodeFoundationRoute: typeof AdminLangCodeFoundationRouteWithChildren
+}
+
+const AdminLangCodeRouteChildren: AdminLangCodeRouteChildren = {
+  AdminLangCodeFoundationRoute: AdminLangCodeFoundationRouteWithChildren,
+}
+
+const AdminLangCodeRouteWithChildren = AdminLangCodeRoute._addFileChildren(
+  AdminLangCodeRouteChildren,
+)
+
+interface AdminRouteChildren {
+  AdminLangCodeRoute: typeof AdminLangCodeRouteWithChildren
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminLangCodeRoute: AdminLangCodeRouteWithChildren,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface LearnLangCodeRouteChildren {
+  LearnLangCodeFoundationRoute: typeof LearnLangCodeFoundationRoute
+}
+
+const LearnLangCodeRouteChildren: LearnLangCodeRouteChildren = {
+  LearnLangCodeFoundationRoute: LearnLangCodeFoundationRoute,
+}
+
+const LearnLangCodeRouteWithChildren = LearnLangCodeRoute._addFileChildren(
+  LearnLangCodeRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AchievementsRoute: AchievementsRoute,
+  AdminRoute: AdminRouteWithChildren,
   DashboardRoute: DashboardRoute,
   LeaderboardRoute: LeaderboardRoute,
+  LearnLangCodeRoute: LearnLangCodeRouteWithChildren,
   LessonLessonIdRoute: LessonLessonIdRoute,
   LessonsStageIdRoute: LessonsStageIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
