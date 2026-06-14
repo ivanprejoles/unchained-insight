@@ -250,8 +250,6 @@ export async function createLesson(input: {
     .select("*")
     .single();
   if (error) throw error;
-  // bump stage.lesson_count
-  await supabase.rpc("noop").catch(() => {});
   return data as unknown as Lesson;
 }
 export async function updateLesson(
