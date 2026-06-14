@@ -96,8 +96,8 @@ function AdminLessonEditor() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold truncate">Admin · {lesson.data?.title} · Activities</h1>
           <div className="flex items-center gap-3">
-            <Link to="/admin/$langCode/foundation/stage/$stageId" params={{ langCode, stageId: "" }} from={Route.fullPath} className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-2">
-              <ArrowLeft className="w-4 h-4" /> Levels
+            <Link to="/admin/$langCode/foundation" params={{ langCode }} className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-2">
+              <ArrowLeft className="w-4 h-4" /> Roadmap
             </Link>
             <Button onClick={() => save.mutate()} disabled={!dirty || save.isPending}>
               <Save className="w-4 h-4 mr-1" /> Save
